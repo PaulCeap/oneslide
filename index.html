@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4ALL Agency | Gamescom 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#F7F6F1;--ink:#171717;--ink2:#2E2E2E;--gray:#6B6B66;--grayd:#9c9c96;--yellow:#F8F951;--magenta:#DB52FA;--green:#00FF00}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--bone);font-family:'JetBrains Mono',Courier,monospace;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cpath d='M64 57v14M57 64h14' stroke='%23F7F6F1' stroke-opacity='.07' stroke-width='1.5'/%3E%3C/svg%3E"),repeating-linear-gradient(90deg,rgba(247,246,241,.04) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(247,246,241,.04) 0 1px,transparent 1px 64px)}
+.disp{font-family:'Space Grotesk',Arial,sans-serif;letter-spacing:-.02em}
+.wrap{max-width:1180px;margin:0 auto;padding:34px 28px 20px}
+/* HUD */
+.hud{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:11px;letter-spacing:.14em;color:var(--grayd);text-transform:uppercase}
+.hud .lvl{display:flex;align-items:center;gap:12px}
+.hud .lvl::before{content:'';width:20px;height:3px;background:var(--yellow)}
+/* main grid: left column exactly as tall as media block */
+.main{display:grid;grid-template-columns:4fr 7fr;gap:22px;margin-top:36px;align-items:stretch}
+.colA{display:flex;flex-direction:column;min-width:0}
+/* title */
+.presents{color:var(--yellow);font-size:12px;font-weight:700;letter-spacing:.32em}
+h1{font-size:clamp(24px,2.6vw,34px);text-transform:uppercase;color:var(--bone);margin-top:8px}
+.bar{width:76px;height:4px;background:var(--yellow);margin-top:12px}
+/* credits directly under the yellow bar */
+.credits{margin-top:26px}
+.credits h2{font-size:10px;letter-spacing:.34em;color:var(--grayd);margin-bottom:10px}
+.crow{display:flex;align-items:baseline;gap:10px;padding:7px 0;font-size:11px}
+.crow:last-child{padding-bottom:0}
+.crow .role{color:var(--gray);white-space:nowrap;letter-spacing:.06em}
+.crow .dots{flex:1;border-bottom:1px dotted var(--ink2);transform:translateY(-3px)}
+.crow .val{font-weight:700;letter-spacing:.06em;text-align:right}
+.crow .val a{color:var(--bone);text-decoration:none}
+.crow .val a:hover{color:var(--yellow)}
+/* media block: two 16:9 stacked + true 9:16 portrait, shared top and bottom lines */
+.media{display:grid;grid-template-columns:1fr 278px;gap:22px;align-items:stretch;min-width:0}
+.colB{display:flex;flex-direction:column;gap:22px;min-width:0}
+.card{position:relative;background:#000;border:1px solid var(--ink2)}
+.card.ticks::before,.card.ticks::after{content:'';position:absolute;width:16px;height:16px;z-index:2}
+.card.ticks::before{top:-8px;left:-8px;border-top:2px solid var(--yellow);border-left:2px solid var(--yellow)}
+.card.ticks::after{bottom:-8px;right:-8px;border-bottom:2px solid var(--yellow);border-right:2px solid var(--yellow)}
+.ratio169{aspect-ratio:16/9}
+.fill{width:100%;height:100%}
+.card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.startbtn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.18em;padding:11px 22px;border-radius:2px;cursor:pointer;transition:transform .2s ease-out}
+.startbtn:hover{transform:scale(1.05)}
+.startbtn i{display:block;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent var(--ink)}
+.clabel{position:absolute;left:14px;bottom:10px;font-size:10px;letter-spacing:.12em;color:var(--grayd);z-index:2}
+.clabel b{color:var(--bone)}
+.under{margin-bottom:9px;font-size:10px;letter-spacing:.12em;color:var(--grayd)}
+.under b{color:var(--bone)}
+.under a{color:inherit;text-decoration:none}
+.under a:hover b,.under a:hover{color:var(--yellow)}
+.vlabel{font-size:11px;font-weight:700;letter-spacing:.2em}
+.vsub{font-size:10px;color:var(--grayd);letter-spacing:.14em}
+.dotp{width:8px;height:8px;border-radius:50%;background:var(--yellow);border:1px solid var(--ink2)}
+/* compact terminal box, fills left column down to media bottom */
+.term{background:#101010;border:1px solid var(--ink2);margin-top:22px;flex:1;display:flex;flex-direction:column;min-height:0}
+.term-bar{display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid var(--ink2)}
+.term-bar i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--gray)}
+.term-bar .fname{margin-left:auto;font-size:10px;color:var(--gray)}
+.mh{padding:11px 14px 0;font-size:10.5px;color:var(--grayd);letter-spacing:.08em;line-height:1.7}
+.mh b{color:var(--bone)}
+.mh .cap{display:block;margin-top:6px;font-size:10px;letter-spacing:.14em}
+.term pre{padding:10px 14px 14px;font-size:9.5px;line-height:1.75;color:#9FE79F;overflow-x:auto;flex:1}
+.term pre .c{color:var(--gray)}.term pre .s{color:var(--yellow)}.term pre .k{font-weight:700;color:var(--magenta)}.term pre .m{color:#7ad4d4}
+/* footer */
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--ink2);display:flex;justify-content:space-between;gap:16px;font-size:10px;letter-spacing:.14em;color:var(--grayd);text-transform:uppercase}
+@media(max-width:900px){
+ .wrap{padding:22px 18px 16px}
+ .hud{flex-direction:column;align-items:flex-start;gap:8px;font-size:10px}
+ .main{display:flex;flex-direction:column;gap:26px;margin-top:26px}
+ .colA{gap:26px}
+ .media{display:flex;flex-direction:column;gap:20px}
+ .fill{width:100%;max-width:280px;align-self:center;aspect-ratio:9/16;height:auto}
+ .term pre{font-size:9.5px}
+ .startbtn{padding:13px 26px;font-size:14px}
+ .card.ticks::before{top:-6px;left:-6px}
+ .card.ticks::after{bottom:-6px;right:-6px}
+ h1{font-size:30px}
+ footer{flex-direction:column;gap:6px;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hud"><span class="lvl">LVL 00 / PRESS START TO BEGIN</span><span>CzechTrade / Gamescom 2026</span></div>
+
+  <div class="main">
+    <div class="colA">
+      <div class="lockup">
+        <div class="presents">PAVEL CYPRICH PRESENTS</div>
+        <h1 class="disp">4ALL Agency</h1>
+        <div class="bar"></div>
+      </div>
+      <div class="credits">
+        <h2>CREDITS</h2>
+        <div class="crow"><span class="role">STUDIO</span><span class="dots"></span><span class="val">PRAGUE / AI-OPENED</span></div>
+        <div class="crow"><span class="role">WHAT WE DO</span><span class="dots"></span><span class="val">CONTENT / PR / EVENTS / AI</span></div>
+        <div class="crow"><span class="role">CLIENTS</span><span class="dots"></span><span class="val">MI ROADS / EA HOTELS / NEURON + MORE</span></div>
+        <div class="crow"><span class="role">PAVEL</span><span class="dots"></span><span class="val">CD &amp; MD / EX-CEO ENTROPIQ / EX-TV SEZNAM</span></div>
+        <div class="crow"><span class="role">CONTACT</span><span class="dots"></span><span class="val"><a href="https://www.4all.cz">4ALL.CZ</a> / <a href="mailto:hello@4all.cz">HELLO@4ALL.CZ</a></span></div>
+      </div>
+      <div class="term">
+        <div class="term-bar"><i></i><i></i><i></i><span class="fname">redakce_ai.py</span></div>
+        <div class="mh"><b>REDAKCE.AI</b> / AI FOR NEWSROOMS / VIBE CODE</div>
+        <pre><span class="c"># AI drafts for newsrooms</span>
+<span class="m">@router.post</span>(<span class="s">"/articles/generate"</span>)
+<span class="k">async def</span> generate(req, org):
+    src = <span class="k">await</span> hybrid_search(req.topic, org.id, k=8)
+    draft = <span class="k">await</span> claude.generate(build_prompt(req.topic, src))
+    <span class="k">return</span> render(<span class="s">"draft.html"</span>)</pre>
+      </div>
+    </div>
+
+    <div class="media">
+      <div class="colB">
+        <div class="card ticks ratio169">
+          <div class="center"><span class="startbtn"><i></i>START</span></div>
+          <span class="clabel"><b>AI SPOT</b> / 2026</span>
+        </div>
+        <div>
+          <div class="under"><a href="https://youtu.be/HHOfHQk60Vo" target="_blank" rel="noopener"><b>EA FC TEAM REVEAL</b></a> / ENTROPIQ / <a href="https://youtu.be/HHOfHQk60Vo" target="_blank" rel="noopener" style="color:var(--magenta)">YOUTUBE</a></div>
+          <div class="card ratio169">
+            <iframe src="https://www.youtube.com/embed/HHOfHQk60Vo" title="EA FC Team Reveal" loading="lazy" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="card fill">
+        <div class="center"><span class="dotp"></span><span class="vlabel">AI VERTICAL</span><span class="vsub">9:16</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer><span>Pavel Cyprich / 4ALL</span><span>CzechTrade / Gamescom 2026</span></footer>
+</div>
+</body>
+</html>
