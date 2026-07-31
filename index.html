@@ -50,6 +50,12 @@ h1{font-size:clamp(24px,2.6vw,34px);text-transform:uppercase;color:var(--bone);m
 .startbtn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.18em;padding:11px 22px;border-radius:2px;cursor:pointer;transition:transform .2s ease-out}
 .startbtn:hover{transform:scale(1.05)}
 .startbtn i{display:block;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent var(--ink)}
+.playbtn{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--ink);font-weight:700;font-size:11px;letter-spacing:.16em;padding:9px 16px;border-radius:2px;cursor:pointer;transition:transform .2s ease-out}
+.playbtn:hover{transform:scale(1.06)}
+.playbtn i{display:block;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent var(--ink)}
+.ovl{pointer-events:none}
+.ovl .startbtn,.ovl .playbtn{pointer-events:auto}
+
 .clabel{position:absolute;left:14px;bottom:10px;font-size:10px;letter-spacing:.12em;color:var(--grayd);z-index:2}
 .clabel b{color:var(--bone)}
 .under{margin-bottom:9px;font-size:10px;letter-spacing:.12em;color:var(--grayd)}
@@ -122,19 +128,21 @@ footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--ink2);display
       <div class="colB">
         <div class="card ticks ratio169" id="aispot">
           <video src="ai-spot.mp4" muted loop autoplay playsinline></video>
-          <div class="center" id="aiOverlay"><span class="startbtn" onclick="startSpot()"><i></i>START</span></div>
-          <span class="clabel"><b>AI SPOT</b> / 2026</span>
+          <div class="center ovl" id="aiOverlay"><span class="startbtn" onclick="playFull(this)"><i></i>START</span></div>
+          <span class="clabel"><b>AI GAMESCOM SPOT</b> / 2026</span>
         </div>
         <div>
           <div class="under"><a href="https://youtu.be/HHOfHQk60Vo" target="_blank" rel="noopener"><b>EA FC TEAM REVEAL</b></a> / ENTROPIQ / <a href="https://youtu.be/HHOfHQk60Vo" target="_blank" rel="noopener" style="color:var(--magenta)">YOUTUBE</a></div>
           <div class="card ratio169">
-            <video src="ea-fc-entropiq.mp4" muted loop autoplay playsinline controls style="object-fit:contain"></video>
+            <video src="ea-fc-loop.mp4" data-full="ea-fc-entropiq.mp4" muted loop autoplay playsinline style="object-fit:contain"></video>
+            <div class="center ovl"><span class="playbtn" onclick="playFull(this)"><i></i>PLAY</span></div>
           </div>
         </div>
       </div>
       <div class="card fill">
-        <video src="ai-vertical.mp4" muted loop autoplay playsinline controls></video>
-        <span class="clabel"><b>AI VERTICAL</b> / 9:16</span>
+        <video src="ai-vertical-loop.mp4" data-full="ai-vertical.mp4" muted loop autoplay playsinline></video>
+        <div class="center ovl"><span class="playbtn" onclick="playFull(this)"><i></i>PLAY</span></div>
+        <span class="clabel"><b>AI TRINITY HOTELS SPOT</b> / 2026</span>
       </div>
     </div>
   </div>
@@ -148,12 +156,21 @@ vids.forEach(v=>{
   v.addEventListener('play',()=>{if(!v.muted)pauseOthers(v);});
   v.addEventListener('volumechange',()=>{if(!v.muted&&!v.paused)pauseOthers(v);});
 });
-function startSpot(){
-  const c=document.querySelector('#aispot video');if(!c||c.readyState===0)return;
-  const o=document.getElementById('aiOverlay');o.style.display='none';
-  c.muted=false;c.loop=false;c.controls=true;c.currentTime=0;pauseOthers(c);c.play();
-  c.onended=()=>{c.controls=false;c.muted=true;c.loop=true;c.currentTime=0;c.play();o.style.display='flex';};
+function playFull(btn){
+  const card=btn.closest('.card,.frame');if(!card)return;
+  const v=card.querySelector('video');if(!v)return;
+  const full=v.dataset.full;
+  if(full){if(!v.dataset.loopsrc)v.dataset.loopsrc=v.getAttribute('src');v.setAttribute('src',full);}
+  else if(v.readyState===0){return;}
+  const ovl=card.querySelector('.ovl');if(ovl)ovl.style.display='none';
+  v.muted=false;v.loop=false;v.controls=true;v.currentTime=0;pauseOthers(v);v.play();
+  v.onended=()=>{
+    if(v.dataset.loopsrc)v.setAttribute('src',v.dataset.loopsrc);
+    v.controls=false;v.muted=true;v.loop=true;v.currentTime=0;v.play();
+    if(ovl)ovl.style.display='flex';
+  };
 }
+function startSpot(){const b=document.querySelector('#aispot .startbtn');if(b)playFull(b);}
 </script>
 </body>
 </html>
