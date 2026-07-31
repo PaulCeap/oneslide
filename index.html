@@ -172,6 +172,12 @@ function playFull(btn){
     if(ovl)ovl.style.display='flex';
   };
 }
+function fsFix(){
+  const fe=document.fullscreenElement||document.webkitFullscreenElement;
+  vids.forEach(v=>{v.style.objectFit=(fe&&(fe===v||fe.contains(v)))?'contain':'';});
+}
+document.addEventListener('fullscreenchange',fsFix);
+document.addEventListener('webkitfullscreenchange',fsFix);
 function startSpot(){const b=document.querySelector('#aispot .startbtn');if(b)playFull(b);}
 </script>
 </body>
