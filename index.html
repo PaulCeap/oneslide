@@ -45,6 +45,7 @@ h1{font-size:clamp(24px,2.6vw,34px);text-transform:uppercase;color:var(--bone);m
 .fill{width:100%;height:100%}
 .card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.center{z-index:3}
 .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
 .startbtn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.18em;padding:11px 22px;border-radius:2px;cursor:pointer;transition:transform .2s ease-out}
 .startbtn:hover{transform:scale(1.05)}
@@ -119,8 +120,9 @@ footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--ink2);display
 
     <div class="media">
       <div class="colB">
-        <div class="card ticks ratio169">
-          <div class="center"><span class="startbtn"><i></i>START</span></div>
+        <div class="card ticks ratio169" id="aispot">
+          <video src="ai-spot.mp4" muted loop autoplay playsinline></video>
+          <div class="center" id="aiOverlay"><span class="startbtn" onclick="startSpot()"><i></i>START</span></div>
           <span class="clabel"><b>AI SPOT</b> / 2026</span>
         </div>
         <div>
@@ -139,5 +141,19 @@ footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--ink2);display
 
   <footer><span>Pavel Cyprich / 4ALL</span><span>CzechTrade / Gamescom 2026</span></footer>
 </div>
+<script>
+const vids=Array.from(document.querySelectorAll('video'));
+function pauseOthers(v){vids.forEach(o=>{if(o!==v)o.pause();});}
+vids.forEach(v=>{
+  v.addEventListener('play',()=>{if(!v.muted)pauseOthers(v);});
+  v.addEventListener('volumechange',()=>{if(!v.muted&&!v.paused)pauseOthers(v);});
+});
+function startSpot(){
+  const c=document.querySelector('#aispot video');if(!c)return;
+  const o=document.getElementById('aiOverlay');o.style.display='none';
+  c.muted=false;c.loop=false;c.controls=true;c.currentTime=0;pauseOthers(c);c.play();
+  c.onended=()=>{c.controls=false;c.muted=true;c.loop=true;c.currentTime=0;c.play();o.style.display='flex';};
+}
+</script>
 </body>
 </html>
