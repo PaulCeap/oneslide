@@ -149,7 +149,7 @@ vids.forEach(v=>{
   v.addEventListener('volumechange',()=>{if(!v.muted&&!v.paused)pauseOthers(v);});
 });
 function startSpot(){
-  const c=document.querySelector('#aispot video');if(!c)return;
+  const c=document.querySelector('#aispot video');if(!c||c.readyState===0)return;
   const o=document.getElementById('aiOverlay');o.style.display='none';
   c.muted=false;c.loop=false;c.controls=true;c.currentTime=0;pauseOthers(c);c.play();
   c.onended=()=>{c.controls=false;c.muted=true;c.loop=true;c.currentTime=0;c.play();o.style.display='flex';};
