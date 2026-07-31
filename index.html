@@ -35,7 +35,7 @@ h1{font-size:clamp(24px,2.6vw,34px);text-transform:uppercase;color:var(--bone);m
 .crow .val a{color:var(--bone);text-decoration:none}
 .crow .val a:hover{color:var(--yellow)}
 /* media block: two 16:9 stacked + true 9:16 portrait, shared top and bottom lines */
-.media{display:grid;grid-template-columns:1fr 278px;gap:22px;align-items:stretch;min-width:0}
+.media{display:grid;grid-template-columns:1fr 271px;gap:22px;align-items:stretch;min-width:0}
 .colB{display:flex;flex-direction:column;gap:22px;min-width:0}
 .card{position:relative;background:#000;border:1px solid var(--ink2)}
 .card.ticks::before,.card.ticks::after{content:'';position:absolute;width:16px;height:16px;z-index:2}
@@ -77,7 +77,7 @@ h1{font-size:clamp(24px,2.6vw,34px);text-transform:uppercase;color:var(--bone);m
 .term pre .c{color:var(--gray)}.term pre .s{color:var(--yellow)}.term pre .k{font-weight:700;color:var(--magenta)}.term pre .m{color:#7ad4d4}
 /* about */
 .about{margin-top:28px;font-size:13px;color:#a9a8a1;line-height:1.75;letter-spacing:.01em;max-width:1040px}
-.about p{margin:0 0 8px}
+.about p{margin:0 0 8px;text-align:justify}
 .about p:last-child{margin-bottom:0}
 .about b{color:var(--bone);font-weight:700}
 .ablab{color:var(--yellow);font-weight:700;letter-spacing:.3em;font-size:11px;margin-right:16px}
@@ -143,10 +143,10 @@ video:-webkit-full-screen{object-fit:contain!important;background:#000}
           <span class="clabel"><b>AI GAMESCOM SPOT</b> / 2026</span>
         </div>
         <div>
-          <div class="under"><a href="https://youtu.be/HHOfHQk60Vo" target="_blank" rel="noopener"><b>EA FC TEAM REVEAL</b></a> / ENTROPIQ / <a href="https://youtu.be/HHOfHQk60Vo" target="_blank" rel="noopener" style="color:var(--magenta)">YOUTUBE</a></div>
           <div class="card ratio169">
             <video src="ea-fc-loop.mp4" data-full="ea-fc-entropiq.mp4" muted loop autoplay playsinline style="object-fit:contain"></video>
             <div class="center ovl"><span class="playbtn" onclick="playFull(this)"><i></i>PLAY</span></div>
+            <span class="clabel"><b>EA FC TEAM REVEAL</b> / ENTROPIQ</span>
           </div>
         </div>
       </div>
